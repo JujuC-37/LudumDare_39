@@ -1,14 +1,25 @@
 :root{
-    --tileSize: 50px;
-    --numColumns: 4;
+    --paddingBody: 10px;
+    --paddingSection: 10px;
+
+    /* buildings */
+    --maxWidthBuilding: 60px;
+    --maxHeightBuilding: 60px;
+    --numBuildingsPerLine: 3;
+    --marginImgBuildings: 10px;
+    --widthBuildingsList: calc(var(--numBuildingsPerLine) * var(--maxWidthBuilding) + 2 * var(--numBuildingsPerLine) * var(--marginImgBuildings));
+
+    /* map */
+    --tileSize: 70px;
+    --numColumns: 5;
     --widthBorderTiles: 1px;
-    --paddingBody: 100px;
+    --widthMap: calc( var(--tileSize) * var(--numColumns));
 }
 
 body{
     font-family: Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
     width: 80%;
-    min-width: calc( (var(--tileSize) + 2*var(--widthBorderTiles)) * var(--numColumns) + 2*var(--paddingBody));
+    min-width: calc( var(--widthMap) + var(--widthBuildingsList) + 2*var(--paddingBody) );
     margin: auto;
     padding: 20px;
 }
@@ -20,23 +31,57 @@ header{
 
 section{
     border: 2px solid green;
-    padding: 10px;
+    padding: var(--paddingSection);
+    min-width: calc(var(--widthMap) + var(--widthBuildingsList));
+}
+
+#informations{
+    width: 100%;
+    background-color: grey;
+}
+
+#city{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    
+}
+
+#buildingsList{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: var(--widthBuildingsList);
+    background-color: plum;
+}
+
+.building img{
+    margin: var(--marginImgBuildings);
+    max-width: var(--maxWidthBuilding);
+    max-height: var(--maxHeightBuilding);
 }
 
 #map{
+    margin: 10px;
+    box-sizing: content-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    width: calc( (var(--tileSize) + 2*var(--widthBorderTiles)) * var(--numColumns));
-    margin: auto;
-    border: var(--widthBorderTiles) solid black;
+    width: var(--widthMap);
+    border-top: var(--widthBorderTiles) solid black;
+    border-left: var(--widthBorderTiles) solid black;
 }
 
 .tile{
+    box-sizing: border-box;
     width: var(--tileSize);
     height: var(--tileSize);
-    border: var(--widthBorderTiles) solid black;
+    border-bottom: var(--widthBorderTiles) solid black;
+    border-right: var(--widthBorderTiles) solid black;
+    background-color: yellowgreen;
 }
 
 footer{
