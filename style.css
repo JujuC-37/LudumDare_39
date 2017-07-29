@@ -1,0 +1,47 @@
+:root{
+    --tileSize: 50px;
+    --numColumns: 4;
+    --widthBorderTiles: 1px;
+    --paddingBody: 100px;
+}
+
+body{
+    font-family: Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
+    width: 80%;
+    min-width: calc( (var(--tileSize) + 2*var(--widthBorderTiles)) * var(--numColumns) + 2*var(--paddingBody));
+    margin: auto;
+    padding: 20px;
+}
+
+header{
+    border: 2px solid yellow;
+    text-align: center;
+}
+
+section{
+    border: 2px solid green;
+    padding: 10px;
+}
+
+#map{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc( (var(--tileSize) + 2*var(--widthBorderTiles)) * var(--numColumns));
+    margin: auto;
+    border: var(--widthBorderTiles) solid black;
+}
+
+.tile{
+    width: var(--tileSize);
+    height: var(--tileSize);
+    border: var(--widthBorderTiles) solid black;
+}
+
+footer{
+    background-color: lightblue;
+    text-align: center;
+    padding: 1px;
+    font-size: 0.7em;
+}
