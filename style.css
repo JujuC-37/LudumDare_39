@@ -11,6 +11,7 @@
 
     /* map */
     --tileSize: 70px;
+    --numsRows: 5;
     --numColumns: 5;
     --widthBorderTiles: 1px;
     --widthMap: calc( var(--tileSize) * var(--numColumns));
