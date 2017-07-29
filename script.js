@@ -1,35 +1,56 @@
 const widthMap = 5;
 const heightMap = 5;
 
-const buildings = [
-    {id: 'farm', class: 'building', name: 'Farm', picture: 'building_farm.svg'},
-    {id: 'hunter', class: 'building', name: 'Hunter', picture: 'building_hunter.svg'},
-    {id: 'fishery', class: 'building', name: 'Fishery', picture: 'building_fishery.svg'},
-    {id: 'windmill', class: 'building', name: 'Windmill', picture: 'building_windmill.svg'},
-    {id: 'warehouse', class: 'building', name: 'Warehouse', picture: 'building_warehouse.svg'},
+const buildingsArray = [
+    {id: 'farm', name: 'Farm', image: 'building_farm.svg'},
+    {id: 'hunter', name: 'Hunter', image: 'building_hunter.svg'},
+    {id: 'fishery', name: 'Fishery', image: 'building_fishery.svg'},
+    {id: 'windmill', name: 'Windmill', image: 'building_windmill.svg'},
+    {id: 'warehouse', name: 'Warehouse', image: 'building_warehouse.svg'},
 ];
 
-/* ----------------------------------- Display ----------------------------------- */
+/* ----------------------------------- Initial Display ----------------------------------- */
 
-buildings.forEach(function(building){
-    var divBuilding = document.createElement('div');
-    divBuilding.setAttribute('id', building.id);
-    divBuilding.setAttribute('class', building.class);
+/* Buildings list */
+const $buildingList = document.getElementById('buildingsList');
+$buildingList.innerHTML = buildingsArray
+    .map( building => `<div id="${building.id}" class="building">
+        <img src="images/${building.image}" alt="${building.name}" title="${building.name}">
+        </div>`)
+    .join('');
 
-    document.getElementById('buildingsList').appendChild(divBuilding);
+/* Map tiles */
+const $map = document.getElementById('map');
+const totalTiles = widthMap * heightMap;
+$map.innerHTML = Array(totalTiles).fill(1)
+    .map((n, i) => `<div id="tile_${i}" class="tile"></div>`)
+    .join('');
 
-    var imgBuilding = document.createElement('img');
-    imgBuilding.src = 'images/' + building.picture;
-    imgBuilding.alt = building.name;
-    imgBuilding.title = building.name;
+/* ----------------------------------- Construction ----------------------------------- */
 
-    document.getElementById(building.id).appendChild(imgBuilding);
-})
+let displayedBuildingsList = document.getElementsByClassName('building');
+let displayedTiles = document.getElementsByClassName('tile');
+let idConstructedBuilding;
 
-for(var i = 0; i < widthMap*heightMap; i++){
-    var divTile = document.createElement('div');
-    divTile.setAttribute('id', 'tile_' + i);
-    divTile.setAttribute('class', 'tile');
-
-    document.getElementById('map').appendChild(divTile);
+for(let building of displayedBuildingsList) {
+    building.addEventListener('click', function(event) {
+        event.stopPropagation(); 
+        idConstructedBuilding = building.id;
+    });
 }
+
+for(let tile of displayedTiles) {
+    tile.addEventListener('click', function(event){
+        event.stopPropagation();
+        if(!idConstructedBuilding) return;
+        chosenBuilding = buildingsArray.find( building => (building.id == idConstructedBuilding));
+        
+        if (!chosenBuilding) return; 
+        tile.innerHTML = `<img src="images/${chosenBuilding.image}" alt="${chosenBuilding.name}" title="${chosenBuilding.name}">`;
+        
+    })
+}
+
+document.addEventListener('click', function(event){
+    idConstructedBuilding = null;
+})

@@ -11,7 +11,7 @@
 
     /* map */
     --tileSize: 70px;
-    --numsRows: 5;
+    /*--numsRows: 5;*/
     --numColumns: 5;
     --widthBorderTiles: 1px;
     --widthMap: calc( var(--tileSize) * var(--numColumns));
@@ -58,7 +58,7 @@ section{
     background-color: plum;
 }
 
-.building img{
+.building img, .tile img{
     margin: var(--marginImgBuildings);
     max-width: var(--maxWidthBuilding);
     max-height: var(--maxHeightBuilding);
@@ -84,6 +84,8 @@ section{
     border-right: var(--widthBorderTiles) solid black;
     background-color: yellowgreen;
 }
+
+
 
 footer{
     background-color: lightblue;
