@@ -58,7 +58,7 @@ section{
     background-color: plum;
 }
 
-.building img, .tile img{
+#buildingsList img, .tile img{
     margin: var(--marginImgBuildings);
     max-width: var(--maxWidthBuilding);
     max-height: var(--maxHeightBuilding);
