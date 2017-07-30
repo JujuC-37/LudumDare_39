@@ -6,8 +6,8 @@
     --maxWidthBuilding: 60px;
     --maxHeightBuilding: 60px;
     --numBuildingsPerLine: 3;
-    --marginImgBuildings: 10px;
-    --widthBuildingsList: calc(var(--numBuildingsPerLine) * var(--maxWidthBuilding) + 2 * var(--numBuildingsPerLine) * var(--marginImgBuildings));
+    --paddingImgBuildings: 5px;
+    --widthBuildingsList: calc(var(--numBuildingsPerLine) * var(--maxWidthBuilding) + 2 * var(--numBuildingsPerLine) * var(--paddingImgBuildings));
 
     /* map */
     --tileSize: 70px;
@@ -49,6 +49,17 @@ section{
     
 }
 
+#toolBar{
+    border: 2px dashed black;
+}
+
+#toolBar img, #map img{
+    padding: var(--paddingImgBuildings);
+    max-width: var(--maxWidthBuilding);
+    max-height: var(--maxHeightBuilding);
+}
+
+
 #buildingsList{
     display: flex;
     flex-direction: row;
@@ -56,12 +67,6 @@ section{
     flex-wrap: wrap;
     width: var(--widthBuildingsList);
     background-color: plum;
-}
-
-#buildingsList img, .tile img{
-    margin: var(--marginImgBuildings);
-    max-width: var(--maxWidthBuilding);
-    max-height: var(--maxHeightBuilding);
 }
 
 #map{
