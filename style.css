@@ -2,12 +2,12 @@
     --paddingBody: 10px;
     --paddingSection: 10px;
 
-    /* buildings */
+    /* tools */
     --maxWidthBuilding: 60px;
     --maxHeightBuilding: 60px;
-    --numBuildingsPerLine: 3;
-    --paddingImgBuildings: 5px;
-    --widthBuildingsList: calc(var(--numBuildingsPerLine) * var(--maxWidthBuilding) + 2 * var(--numBuildingsPerLine) * var(--paddingImgBuildings));
+    --numToolsPerLine: 3;
+    --paddingImgTools: 5px;
+    --widthToolsList: calc(var(--numToolsPerLine) * var(--maxWidthBuilding) + 2 * var(--numToolsPerLine) * var(--paddingImgTools));
 
     /* map */
     --tileSize: 70px;
@@ -20,7 +20,7 @@
 body{
     font-family: Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
     width: 80%;
-    min-width: calc( var(--widthMap) + var(--widthBuildingsList) + 2*var(--paddingBody) );
+    min-width: calc( var(--widthMap) + var(--widthToolsList) + 2*var(--paddingBody) );
     margin: auto;
     padding: 20px;
 }
@@ -33,10 +33,10 @@ header{
 section{
     border: 2px solid green;
     padding: var(--paddingSection);
-    min-width: calc(var(--widthMap) + var(--widthBuildingsList));
+    min-width: calc(var(--widthMap) + var(--widthToolsList));
 }
 
-#informations{
+#informationsCity{
     width: 100%;
     background-color: yellowgreen;
     display: flex;
@@ -58,19 +58,40 @@ section{
 }
 
 #toolBar img, #map img{
-    padding: var(--paddingImgBuildings);
+    padding: var(--paddingImgTools);
     max-width: var(--maxWidthBuilding);
     max-height: var(--maxHeightBuilding);
 }
 
 
-#buildingsList{
+#toolsList{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
-    width: var(--widthBuildingsList);
+    width: var(--widthToolsList);
     background-color: plum;
+}
+
+.infosToolTitle{
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.infosToolText{
+    font-size: 0.8em;
+    margin-top: 0px;
+    font-style: italic;
+}
+
+.infosToolText img{
+    height: 20px;
+}
+
+.infosToolSubTitle{
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
 #map{
@@ -80,6 +101,7 @@ section{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: center;
     width: var(--widthMap);
     border-top: var(--widthBorderTiles) solid black;
     border-left: var(--widthBorderTiles) solid black;
