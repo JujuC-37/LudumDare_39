@@ -1,126 +1,152 @@
 :root{
-    --paddingBody: 10px;
-    --paddingSection: 10px;
+    --nbColumnMap: 6; /* data in .js too */
+    --nbLinesMap: 6; /* data in .js too */
+    --nbColumnToolsList: 4;
 
-    /* tools */
-    --maxWidthBuilding: 60px;
-    --maxHeightBuilding: 60px;
-    --numToolsPerLine: 3;
-    --paddingImgTools: 5px;
-    --widthToolsList: calc(var(--numToolsPerLine) * var(--maxWidthBuilding) + 2 * var(--numToolsPerLine) * var(--paddingImgTools));
+    --sizeImgToolsList: 70px;
+    --marginImgToolsList: 5px;
+    --heightInfoTool: 250px;
 
-    /* map */
-    --tileSize: 70px;
-    /*--numsRows: 5;*/
-    --numColumns: 5;
-    --widthBorderTiles: 1px;
-    --widthMap: calc( var(--tileSize) * var(--numColumns));
+    --widthMapSection: 800px;
+    --sizeTileMap: 70px;
+    --sizeBuildingOnTileMap: 65px;
 }
 
 body{
     font-family: Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
-    width: 80%;
-    min-width: calc( var(--widthMap) + var(--widthToolsList) + 2*var(--paddingBody) );
+    width: 900px;
     margin: auto;
-    padding: 20px;
 }
 
 header{
-    border: 2px solid yellow;
     text-align: center;
+    background-color: lightgoldenrodyellow;
 }
 
 section{
-    border: 2px solid green;
-    padding: var(--paddingSection);
-    min-width: calc(var(--widthMap) + var(--widthToolsList));
+    background-color: lightskyblue;
 }
 
 #informationsCity{
-    width: 100%;
+    background-color: plum;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#informationsCity > *{
+    width: 120px;
+}
+
+#informationsCity img{
+    height: 30px;
+    vertical-align: middle;
+}
+
+#city{
+    background-color: lightgreen;
+    display: flex;
+    flex-direction: row;
+}
+
+#toolBarSection{
+    background-color: lightpink;
+    width: calc( var(--nbColumnToolsList) * (var(--sizeImgToolsList) + var(--marginImgToolsList)));
+    display: flex;
+    flex-direction: column;
+}
+
+#toolsList{
     background-color: yellowgreen;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 
-#city{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    
+#toolsList img{
+    box-sizing: border-box;
+    padding: 5px;
+    margin: var(--marginImgToolsList);
+    width: var(--sizeImgToolsList);
+    height: var(--sizeImgToolsList);
 }
 
-#toolBar{
-    border: 2px dashed black;
-}
-
-#toolBar img, #map img{
-    padding: var(--paddingImgTools);
-    max-width: var(--maxWidthBuilding);
-    max-height: var(--maxHeightBuilding);
-}
-
-
-#toolsList{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: var(--widthToolsList);
-    background-color: plum;
+#informationsTool{
+    background-color: yellow;
+    padding: 5px;
+    height: var(--heightInfoTool);
 }
 
 .infosToolTitle{
-    font-size: 0.9em;
-    font-weight: bold;
     text-align: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.infosToolSubTitle{
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
 }
 
 .infosToolText{
     font-size: 0.8em;
-    margin-top: 0px;
-    font-style: italic;
+    margin-top: 0;
 }
 
 .infosToolText img{
     height: 20px;
+    margin-left: 10px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
-.infosToolSubTitle{
-    font-size: 0.8em;
-    font-weight: bold;
+#mapSection{
+    background-color: purple;
+    width: var(--widthMapSection);
 }
 
 #map{
-    margin: 10px;
-    box-sizing: content-box;
+    width: calc( var(--nbColumnMap) * var(--sizeTileMap) );
+    height: calc( var(--nbLinesMap) * var(--sizeTileMap) );
+    margin: 40px auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    width: var(--widthMap);
-    border-top: var(--widthBorderTiles) solid black;
-    border-left: var(--widthBorderTiles) solid black;
 }
 
-.tile{
+.tileMap{
+    width: var(--sizeTileMap);
+    height: var(--sizeTileMap);
     box-sizing: border-box;
-    width: var(--tileSize);
-    height: var(--tileSize);
-    border-bottom: var(--widthBorderTiles) solid black;
-    border-right: var(--widthBorderTiles) solid black;
-    background-color: yellowgreen;
+    border: 1px solid black;
 }
 
+.buildingOnTileMap{
+    width: var(--sizeBuildingOnTileMap);
+    height: var(--sizeBuildingOnTileMap);
+}
 
+.tileBackground_0{
+    background-image: url("images/tile_green_00.svg");
+    background-size: var(--sizeTileMap) var(--sizeTileMap);
+}
+
+.tileBackground_1{
+    background-image: url("images/tile_green_01.svg");
+    background-size: var(--sizeTileMap) var(--sizeTileMap);
+}
+
+.tileBackground_2{
+    background-image: url("images/tile_green_02.svg");
+    background-size: var(--sizeTileMap) var(--sizeTileMap);
+}
+
+.tileBackground_3{
+    background-image: url("images/tile_green_03.svg");
+    background-size: var(--sizeTileMap) var(--sizeTileMap);
+}
 
 footer{
-    background-color: lightblue;
-    text-align: center;
-    padding: 1px;
-    font-size: 0.7em;
+    background-color: lightslategrey;
 }

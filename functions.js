@@ -1,6 +1,7 @@
-const widthMap = 5;
-const heightMap = 5;
+const widthMap = 6; /* data in .css too */
+const heightMap = 6; /* data in .css too */
 const frequencyDisplay = 3000;
+const nbBackgroundTiles = 4;
 
 const $toolsList = document.getElementById('toolsList');
 const $informationsTool = document.getElementById('informationsTool');
@@ -85,7 +86,7 @@ var actualDatas = initialDatas;
 // ----------------------------  Display ----------------------------
 function createToolsList() {
     $toolsList.innerHTML += toolsArray
-        .map( tool => `<div id ="${tool.id}" class="selectable tool">
+        .map( tool => `<div id ="${tool.id}" class="selectableTool tool">
             <img src="images/${tool.image}" alt="${tool.name}" title="${tool.descr}">
             </div>`)
             .join('');
@@ -93,16 +94,16 @@ function createToolsList() {
 
 function createMap() {
     $map.innerHTML = Array(widthMap * heightMap).fill(1)
-        .map((n, i) => `<div id="tile_${i}" class="tile"></div>`)
+        .map((n, i) => `<div id="tile_${i}" class="tileMap tileBackground_${Math.trunc((Math.random()*100) % nbBackgroundTiles)}"></div>`)
         .join('');
 }
 
 function createInformationsCityBar() {
-    $informationsCityBar.innerHTML = `<p id="people">People : ${Math.trunc(initialDatas.people)}</p>
-    <p id="totalFood">Food : ${Math.trunc(initialDatas.food)}</p>
-    <p id="totalFood">Log : ${Math.trunc(initialDatas.log)}</p>
-    <p id="totalFood">Stone : ${Math.trunc(initialDatas.stone)}</p>
-    <p id="totalFood">Happiness : ${Math.trunc(initialDatas.happiness)}</p>`;
+    $informationsCityBar.innerHTML = `<p id="people"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(initialDatas.people)}</p>
+    <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(initialDatas.food)}</p>
+    <p id="totalFood"><img src="images/logo_log.svg" alt="log"> ${Math.trunc(initialDatas.log)}</p>
+    <p id="totalFood"><img src="images/logo_stone.svg" alt="stone"> ${Math.trunc(initialDatas.stone)}</p>
+    <p id="totalFood"><img src="images/logo_happiness.png" alt="happiness">${Math.trunc(initialDatas.happiness)}</p>`;
 }
 
 function displayInformationsTool(idChosenTool) {
@@ -143,8 +144,6 @@ function datasCalculate(actualDatas, delta){
             return actualDatasUse;
         }, {food: 0, log: 0, stone: 0, happiness: 0});
 
-    console.log(actualDatas, actualDatasUse, actualDatasProd);
-
     // calculation
     Object.keys(actualDatasProd).forEach( key => {
         actualDatas[key] += delta * (actualDatasProd[key] - actualDatasUse[key])
@@ -154,11 +153,11 @@ function datasCalculate(actualDatas, delta){
 }
 
 function updateInformationsBar(actualDatas) {
-    $informationsCityBar.innerHTML = `<p id="people">People : ${Math.trunc(actualDatas.people)}</p>
-    <p id="totalFood">Food : ${Math.trunc(actualDatas.food)}</p>
-    <p id="totalFood">Log : ${Math.trunc(actualDatas.log)}</p>
-    <p id="totalFood">Stone : ${Math.trunc(actualDatas.stone)}</p>
-    <p id="totalFood">Happiness : ${Math.trunc(actualDatas.happiness)}</p>`;
+    $informationsCityBar.innerHTML = `<p id="people"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(actualDatas.people)}</p>
+    <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(actualDatas.food)}</p>
+    <p id="totalFood"><img src="images/logo_log.svg" alt="log"> ${Math.trunc(actualDatas.log)}</p>
+    <p id="totalFood"><img src="images/logo_stone.svg" alt="stone"> ${Math.trunc(actualDatas.stone)}</p>
+    <p id="totalFood"><img src="images/logo_happiness.png" alt="happiness"> ${Math.trunc(actualDatas.happiness)}</p>`;
 }
 
 let lastTime = 0;
@@ -215,7 +214,7 @@ function constructBuilding(tile, idChosenTile, idChosenTool){
     // construction
     if(possibleConstruction) {
         constructedBuildingsArray[idChosenTile] = chosenBuilding;
-        tile.innerHTML = `<img src="images/${chosenBuilding.image}" alt="${chosenBuilding.name}" title="${chosenBuilding.name}">`;
+        tile.innerHTML = `<img class="buildingOnTileMap" src="images/${chosenBuilding.image}" alt="${chosenBuilding.name}" title="${chosenBuilding.name}">`;
         
         // update datas
         Object.keys(chosenBuilding.resourcesConstruction).forEach( key =>

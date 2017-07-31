@@ -9,12 +9,12 @@ displayInformationsPerFrequency(performance.now());
 
 // ----------------------------  Events ----------------------------
 
-let displayedToolsList = document.getElementsByClassName('selectable');
-let displayedTiles = document.getElementsByClassName('tile');
+let toolsList = document.getElementsByClassName('selectableTool');
+let tilesMap = document.getElementsByClassName('tileMap');
 let idChosenTool;
 let idChosenTile;
 
-for(let tool of displayedToolsList) {
+for(let tool of toolsList) {
     tool.addEventListener('click', function(event) {
         event.stopPropagation(); 
         idChosenTool = tool.id;
@@ -33,7 +33,7 @@ for(let tool of displayedToolsList) {
     })
 }
 
-for(let tile of displayedTiles) {
+for(let tile of tilesMap) {
     tile.addEventListener('click', function(event){
         event.stopPropagation();
         idChosenTile = tile.id.split('_')[1];
