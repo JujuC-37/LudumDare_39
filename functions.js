@@ -11,7 +11,7 @@ const $informationsCityBar = document.getElementById('informationsCity');
 class Building {
     constructor(id, name, description, image, people, resourcesProd, resourcesUse, resourcesConstruction, resourcesStorageMax) {
         this.id = id;
-        this.class = 'building',
+        this.type = 'building',
         this.name = name;
         this.descr = description;
         this.image = image;
@@ -23,6 +23,17 @@ class Building {
     }
 }
 
+class Tools {
+    constructor(id, name, description, image) {
+        this.id = id;
+        this.type = 'tool';
+        this.name = name;
+        this.descr = description;
+        this.image = image;
+    }
+}
+
+// Buildings
 const farmer = new Building('farmer', 'Farmer', 'Products food', 'building_farmer.svg', 4, 
     {food: 5, log: 0, stone: 0, happiness: 0}, // prod
     {food: 2, log: 0, stone: 0, happiness: 1}, // use
@@ -72,11 +83,12 @@ const townHall = new Building('townHall', 'TownHall', 'Displays city datas and a
     {food: 0, log: 0, stone: 0, happiness: 0} // storage
 );
 
-const buildingsArray = [farmer, hunter, woodcutter, stonecutter, warehouse, townHall, circus];
+// Tools
+const broomRemove = new Tools('removeTool', 'Remove', 'Remove clicked building', 'tool_broom.svg');
 
-const toolsArray = [
-    {id: 'removeTool', class: 'tool', name: 'Remove', descr: 'Remove clicked building', image: 'tool_broom.svg'}
-].concat(buildingsArray);
+// General
+const buildingsArray = [farmer, hunter, woodcutter, stonecutter, warehouse, townHall, circus];
+const toolsArray = [broomRemove];
 
 var constructedBuildingsArray = Array(widthMap * heightMap).fill(null);
 var initialDatas = {people: 0, food: 2, log: 4, stone: 0, happiness: 0};
@@ -86,8 +98,14 @@ var actualDatas = initialDatas;
 // ----------------------------  Display ----------------------------
 function createToolsList() {
     $toolsList.innerHTML += toolsArray
-        .map( tool => `<div id ="${tool.id}" class="selectableTool tool">
+        .map( tool => `<div id ="${tool.id}" class="selectableTool ${tool.type}">
             <img src="images/${tool.image}" alt="${tool.name}" title="${tool.descr}">
+            </div>`)
+            .join('');
+
+    $toolsList.innerHTML += buildingsArray
+        .map( building => `<div id ="${building.id}" class="selectableTool ${building.type}">
+            <img src="images/${building.image}" alt="${building.name}" title="${building.descr}">
             </div>`)
             .join('');
 }
@@ -106,24 +124,30 @@ function createInformationsCityBar() {
     <p id="totalFood"><img src="images/logo_happiness.png" alt="happiness">${Math.trunc(initialDatas.happiness)}</p>`;
 }
 
-function displayInformationsTool(idChosenTool) {
-    let chosenTool = toolsArray.find( tool => (tool.id == idChosenTool));
-    if (!chosenTool) return;
+function displayInformationsTool(idReadTool) {
+    var chosenObject = toolsArray.find( tool => (tool.id == idReadTool));
+    if(!chosenObject)
+        var chosenObject = buildingsArray.find( building => (building.id == idReadTool));
+    if (!chosenObject)
+        return;
 
-    if (chosenTool.id === 'removeTool') {
-        $informationsTool.innerHTML = `<p class="infosToolTitle">${chosenTool.name}</p>
-        <p class="infosToolText">${chosenTool.descr}</p>`;
-    } else {
-        $informationsTool.innerHTML = `<p class="infosToolTitle">${chosenTool.name}</p>
-        <p class="infosToolText">${chosenTool.descr}</p>
+    if (chosenObject.type === 'tool') {
+        $informationsTool.innerHTML = `<p class="infosToolTitle">${chosenObject.name}</p>
+        <p class="infosToolText">${chosenObject.descr}</p>`;
+    } else if (chosenObject.type === 'building'){
+        $informationsTool.innerHTML = 
+        `<p class="infosToolTitle">${chosenObject.name}</p>
+        <p class="infosToolText">${chosenObject.descr}</p>
         <p class="infosToolSubTitle">Construction needs :</p>
-        <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenTool.resourcesConstruction.food} <img src="images/logo_log.svg" alt="log">${chosenTool.resourcesConstruction.log} <img src="images/logo_stone.svg" alt="stone">${chosenTool.resourcesConstruction.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenTool.resourcesConstruction.happiness}</p>
+        <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenObject.resourcesConstruction.food} <img src="images/logo_log.svg" alt="log">${chosenObject.resourcesConstruction.log} <img src="images/logo_stone.svg" alt="stone">${chosenObject.resourcesConstruction.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenObject.resourcesConstruction.happiness}</p>
         <p class="infosToolSubTitle">Construction products :</p>
-        <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenTool.resourcesProd.food} <img src="images/logo_log.svg" alt="log">${chosenTool.resourcesProd.log} <img src="images/logo_stone.svg" alt="stone">${chosenTool.resourcesProd.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenTool.resourcesProd.happiness}</p>`;
+        <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenObject.resourcesProd.food} <img src="images/logo_log.svg" alt="log">${chosenObject.resourcesProd.log} <img src="images/logo_stone.svg" alt="stone">${chosenObject.resourcesProd.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenObject.resourcesProd.happiness}</p>`;
+    } else{
+        console.log('There is a problem in function displayInformationsTool()');
     }
 }
 
-function deleteInformationsTool(idChosenTool) {
+function deleteInformationsTool() {
     $informationsTool.innerHTML = '';
 }
 
@@ -183,11 +207,14 @@ function removeBuilding(tile, idChosenTile){
     if(tile.innerHTML != "" && window.confirm('Remove this building?')) {
         tile.innerHTML = '';
         constructedBuildingsArray[idChosenTile] = null;
+        console.log(constructedBuildingsArray[idChosenTile]);
     }
 }
 
 function constructBuilding(tile, idChosenTile, idChosenTool){
-    let chosenBuilding = buildingsArray.find( building => (building.id == idChosenTool)); 
+    let chosenBuilding = buildingsArray.find( building => (building.id == idChosenTool));
+    console.log(tile, idChosenTile, idChosenTool) ;
+    console.log(chosenBuilding);
     if (!chosenBuilding) return;
 
     // empty tile ?

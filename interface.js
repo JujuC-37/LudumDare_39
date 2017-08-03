@@ -12,6 +12,7 @@ displayInformationsPerFrequency(performance.now());
 let toolsList = document.getElementsByClassName('selectableTool');
 let tilesMap = document.getElementsByClassName('tileMap');
 let idChosenTool;
+let idReadTool;
 let idChosenTile;
 
 for(let tool of toolsList) {
@@ -22,14 +23,13 @@ for(let tool of toolsList) {
 
     tool.addEventListener('mouseover', function(event){
         event.stopPropagation();
-        idChosenTool = tool.id;
-        displayInformationsTool(idChosenTool);
+        idReadTool = tool.id;
+        displayInformationsTool(idReadTool);
     });
 
     tool.addEventListener('mouseout', function(event) {
         event.stopPropagation();
-        idChosenTool = tool.id;
-        deleteInformationsTool(idChosenTool);
+        deleteInformationsTool();
     })
 }
 
