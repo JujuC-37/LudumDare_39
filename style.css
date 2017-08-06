@@ -71,6 +71,10 @@ section{
     height: var(--sizeImgToolsList);
 }
 
+.selectedTool img{
+    box-shadow: 0 0 10px black;
+}
+
 #informationsTool{
     background-color: yellow;
     padding: 5px;
@@ -149,4 +153,5 @@ section{
 
 footer{
     background-color: lightslategrey;
+    text-align: center;
 }
