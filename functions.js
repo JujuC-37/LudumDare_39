@@ -122,11 +122,11 @@ function createMap() {
 }
 
 function createInformationsCityBar() {
-    $informationsCityBar.innerHTML = `<p id="people"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(initialDatas.people)}</p>
+    $informationsCityBar.innerHTML = `<p id="totalPeople"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(initialDatas.people)}</p>
     <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(initialDatas.food)}</p>
-    <p id="totalFood"><img src="images/logo_log.svg" alt="log"> ${Math.trunc(initialDatas.log)}</p>
-    <p id="totalFood"><img src="images/logo_stone.svg" alt="stone"> ${Math.trunc(initialDatas.stone)}</p>
-    <p id="totalFood"><img src="images/logo_happiness.png" alt="happiness">${Math.trunc(initialDatas.happiness)}</p>`;
+    <p id="totalLog"><img src="images/logo_log.svg" alt="log" title="Log"> ${Math.trunc(initialDatas.log)}</p>
+    <p id="totalStone"><img src="images/logo_stone.svg" alt="stone" title="Stone"> ${Math.trunc(initialDatas.stone)}</p>
+    <p id="totalHappiness"><img src="images/logo_happiness.png" alt="happiness" title="Happiness">${Math.trunc(initialDatas.happiness)}</p>`;
 }
 
 function displayInformationsTool(idReadTool) {
@@ -187,11 +187,11 @@ function datasCalculate(actualDatas, delta){
 }
 
 function updateInformationsBar(actualDatas) {
-    $informationsCityBar.innerHTML = `<p id="people"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(actualDatas.people)}</p>
+    $informationsCityBar.innerHTML = `<p id="totalPeople"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(actualDatas.people)}</p>
     <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(actualDatas.food)}</p>
-    <p id="totalFood"><img src="images/logo_log.svg" alt="log"> ${Math.trunc(actualDatas.log)}</p>
-    <p id="totalFood"><img src="images/logo_stone.svg" alt="stone"> ${Math.trunc(actualDatas.stone)}</p>
-    <p id="totalFood"><img src="images/logo_happiness.png" alt="happiness"> ${Math.trunc(actualDatas.happiness)}</p>`;
+    <p id="totalLog"><img src="images/logo_log.svg" alt="log" title="Log"> ${Math.trunc(actualDatas.log)}</p>
+    <p id="totalStone"><img src="images/logo_stone.svg" alt="stone" title="Stone"> ${Math.trunc(actualDatas.stone)}</p>
+    <p id="totalHappiness"><img src="images/logo_happiness.png" alt="happiness" title="Happiness"> ${Math.trunc(actualDatas.happiness)}</p>`;
 }
 
 let lastTime = 0;
