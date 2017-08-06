@@ -1,5 +1,5 @@
-const widthMap = 6; /* data in .css too */
-const heightMap = 6; /* data in .css too */
+const widthMap = 6; // data in .css too
+const heightMap = 6; // data in .css too
 const frequencyDisplay = 3000;
 const nbBackgroundTiles = 4;
 
@@ -33,7 +33,7 @@ class Tools {
     }
 }
 
-// Buildings
+// ----- Buildings -----
 const farmer = new Building('farmer', 'Farmer', 'Products food', 'building_farmer.svg', 4, 
     {food: 5, log: 0, stone: 0, happiness: 0}, // prod
     {food: 2, log: 0, stone: 0, happiness: 1}, // use
@@ -83,10 +83,10 @@ const townHall = new Building('townHall', 'TownHall', 'Displays city datas and a
     {food: 0, log: 0, stone: 0, happiness: 0} // storage
 );
 
-// Tools
+// ----- Tools -----
 const broomRemove = new Tools('removeTool', 'Remove', 'Remove clicked building', 'tool_broom.svg');
 
-// General
+// ----- General -----
 const buildingsArray = [farmer, hunter, woodcutter, stonecutter, warehouse, townHall, circus];
 const toolsArray = [broomRemove];
 
@@ -94,15 +94,19 @@ var constructedBuildingsArray = Array(widthMap * heightMap).fill(null);
 var initialDatas = {people: 0, food: 2, log: 4, stone: 0, happiness: 0};
 var actualDatas = initialDatas;
 
+// -----------------------------------------------------------------------------
+// ---------------------------------  Display ----------------------------------
+// -----------------------------------------------------------------------------
 
-// ----------------------------  Display ----------------------------
 function createToolsList() {
+    // ----- tools -----
     $toolsList.innerHTML += toolsArray
         .map( tool => `<div id ="${tool.id}" class="selectableTool ${tool.type}">
             <img src="images/${tool.image}" alt="${tool.name}" title="${tool.descr}">
             </div>`)
             .join('');
 
+    // ----- buildings -----
     $toolsList.innerHTML += buildingsArray
         .map( building => `<div id ="${building.id}" class="selectableTool ${building.type}">
             <img src="images/${building.image}" alt="${building.name}" title="${building.descr}">
@@ -111,6 +115,7 @@ function createToolsList() {
 }
 
 function createMap() {
+    // random backgrounds
     $map.innerHTML = Array(widthMap * heightMap).fill(1)
         .map((n, i) => `<div id="tile_${i}" class="tileMap tileBackground_${Math.trunc((Math.random()*100) % nbBackgroundTiles)}"></div>`)
         .join('');
@@ -131,10 +136,13 @@ function displayInformationsTool(idReadTool) {
     if (!chosenObject)
         return;
 
+
     if (chosenObject.type === 'tool') {
         $informationsTool.innerHTML = `<p class="infosToolTitle">${chosenObject.name}</p>
         <p class="infosToolText">${chosenObject.descr}</p>`;
-    } else if (chosenObject.type === 'building'){
+    }
+
+    else if (chosenObject.type === 'building'){
         $informationsTool.innerHTML = 
         `<p class="infosToolTitle">${chosenObject.name}</p>
         <p class="infosToolText">${chosenObject.descr}</p>
@@ -151,24 +159,26 @@ function deleteInformationsTool() {
     $informationsTool.innerHTML = '';
 }
 
-// ----------------------------  Datas ----------------------------
+// -----------------------------------------------------------------------------
+// ----------------------------------  Datas -----------------------------------
+// -----------------------------------------------------------------------------
 
 function datasCalculate(actualDatas, delta){
-    // production
+    // ----- production -----
     const actualDatasProd = constructedBuildingsArray.filter(building => building != null)
         .reduce((actualDatasProd, building) => {
             Object.keys(building.resourcesProd).forEach(key => actualDatasProd[key] += building.resourcesProd[key]);
             return actualDatasProd;
         }, {food: 0, log: 0, stone: 0, happiness: 0});
 
-    // use
+    // ----- use -----
     const actualDatasUse = constructedBuildingsArray.filter(building => building != null)
         .reduce((actualDatasUse, building) => {
             Object.keys(building.resourcesUse).forEach(key => actualDatasUse[key] += building.resourcesUse[key]);
             return actualDatasUse;
         }, {food: 0, log: 0, stone: 0, happiness: 0});
 
-    // calculation
+    // ----- calculation -----
     Object.keys(actualDatasProd).forEach( key => {
         actualDatas[key] += delta * (actualDatasProd[key] - actualDatasUse[key])
     });
@@ -201,8 +211,10 @@ function displayInformationsPerFrequency(time){
     , frequencyDisplay);
 }
 
+// -----------------------------------------------------------------------------
+// --------------------------------- Buildings ---------------------------------
+// -----------------------------------------------------------------------------
 
-// ---------------------------- Buildings ----------------------------
 function removeBuilding(tile, idChosenTile){
     if(tile.innerHTML != "" && window.confirm('Remove this building?')) {
         tile.innerHTML = '';
@@ -217,19 +229,19 @@ function constructBuilding(tile, idChosenTile, idChosenTool){
     console.log(chosenBuilding);
     if (!chosenBuilding) return;
 
-    // empty tile ?
+    // ----- empty tile ? -----
     if(constructedBuildingsArray[idChosenTile] != null) {
         alert('This case is not empty. Remove actual building.');
         return;
     }
     
-    // unique Townhall ?
+    // ----- unique Townhall ? -----
     if (idChosenTool === townHall.id && constructedBuildingsArray.find( building => building && (building.id == townHall.id))){
         alert(`The ${townHall.name} is already built.`);
         return;
     }
 
-    // available resources ?
+    // ----- available resources ? -----
     let possibleConstruction = true;
     Object.keys(chosenBuilding.resourcesConstruction).forEach ( key => {
         if(chosenBuilding.resourcesConstruction[key] > 0 && chosenBuilding.resourcesConstruction[key] > actualDatas[key]) {

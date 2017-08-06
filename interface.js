@@ -1,13 +1,19 @@
+// -----------------------------------------------------------------------------
+// ---------------------------------  Display ----------------------------------
+// -----------------------------------------------------------------------------
 
-// ----------------------------  Display ----------------------------
-
+// ----- initial -----
 createToolsList();
 createMap();
 createInformationsCityBar();
 
+// ----- game -----
 displayInformationsPerFrequency(performance.now());
 
-// ----------------------------  Events ----------------------------
+
+// -----------------------------------------------------------------------------
+// ----------------------------------  Events ----------------------------------
+// -----------------------------------------------------------------------------
 
 let toolsList = document.getElementsByClassName('selectableTool');
 let tilesMap = document.getElementsByClassName('tileMap');
@@ -44,6 +50,7 @@ for(let tile of tilesMap) {
         }
         else{
             alert("In development");
+            // dvp function to display building informations (that controls if there is a constructed building)
         }
     })
 }
