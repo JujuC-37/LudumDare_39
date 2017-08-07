@@ -206,6 +206,7 @@ function displayMap() {
         .join('');
 }
 
+<<<<<<< HEAD
 function displayInformationsCity(cityDatas) {
     console.log(cityDatas);
     $informationsCityBar.innerHTML = `<p id="totalPeople"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(cityDatas.people)}</p>
@@ -227,6 +228,14 @@ function addContentInformationsSection(chosenObject) {
         <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenObject.resourcesConstruction.food} <img src="images/logo_log.svg" alt="log">${chosenObject.resourcesConstruction.log} <img src="images/logo_stone.svg" alt="stone">${chosenObject.resourcesConstruction.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenObject.resourcesConstruction.happiness}</p>
         <p class="infosToolSubTitle">Construction products :</p>
         <p class="infosToolText"><img src="images/logo_food.svg" alt="food">${chosenObject.resourcesProd.food} <img src="images/logo_log.svg" alt="log">${chosenObject.resourcesProd.log} <img src="images/logo_stone.svg" alt="stone">${chosenObject.resourcesProd.stone} <img src="images/logo_happiness.png" alt="happiness">${chosenObject.resourcesProd.happiness}</p>`;
+=======
+function createInformationsCityBar() {
+    $informationsCityBar.innerHTML = `<p id="totalPeople"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(initialDatas.people)}</p>
+    <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(initialDatas.food)}</p>
+    <p id="totalLog"><img src="images/logo_log.svg" alt="log" title="Log"> ${Math.trunc(initialDatas.log)}</p>
+    <p id="totalStone"><img src="images/logo_stone.svg" alt="stone" title="Stone"> ${Math.trunc(initialDatas.stone)}</p>
+    <p id="totalHappiness"><img src="images/logo_happiness.png" alt="happiness" title="Happiness">${Math.trunc(initialDatas.happiness)}</p>`;
+>>>>>>> 77e1ad896ac931e3d010d50caf9654698a314944
 }
 
 function displayInformationsTool(idReadTool) {
@@ -258,8 +267,17 @@ function displayInformationsTile(idTile) {
     addContentInformationsSection(displayedBuilding);
 }
 
+<<<<<<< HEAD
 function deleteInformationsTool() {
     $informationsSection.innerHTML = '';
+=======
+function updateInformationsBar(actualDatas) {
+    $informationsCityBar.innerHTML = `<p id="totalPeople"><img src="images/logo_population.svg" alt="population" title="Population"> ${Math.trunc(actualDatas.people)}</p>
+    <p id="totalFood"><img src="images/logo_food.svg" alt="food" title="Food"> ${Math.trunc(actualDatas.food)}</p>
+    <p id="totalLog"><img src="images/logo_log.svg" alt="log" title="Log"> ${Math.trunc(actualDatas.log)}</p>
+    <p id="totalStone"><img src="images/logo_stone.svg" alt="stone" title="Stone"> ${Math.trunc(actualDatas.stone)}</p>
+    <p id="totalHappiness"><img src="images/logo_happiness.png" alt="happiness" title="Happiness"> ${Math.trunc(actualDatas.happiness)}</p>`;
+>>>>>>> 77e1ad896ac931e3d010d50caf9654698a314944
 }
 
 // ----- update display -----
