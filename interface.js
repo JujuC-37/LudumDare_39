@@ -3,12 +3,12 @@
 // -----------------------------------------------------------------------------
 
 // ----- initial -----
-createToolsList();
-createMap();
-createInformationsCityBar();
+displayToolsList();
+displayMap();
+displayInitialInformationsCity();
 
 // ----- game -----
-displayInformationsPerFrequency(performance.now());
+updateDisplayPerFrequency(performance.now());
 
 
 // -----------------------------------------------------------------------------
@@ -67,8 +67,7 @@ for(let tile of tilesMap) {
             else constructBuilding(tile, idChosenTile, idChosenTool);
         }
         else{
-            alert("In development");
-            // dvp function to display building informations (that controls if there is a constructed building)
+            displayInformationsTile(idChosenTile);
         }
     })
 }
