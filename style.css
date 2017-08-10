@@ -43,6 +43,19 @@ section{
     vertical-align: middle;
 }
 
+.catInfosCityBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.catInfosCityBar .details{
+    font-size: 0.7em;
+    text-align: right;
+}
+
+
 #city{
     background-color: lightgreen;
     display: flex;
