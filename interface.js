@@ -21,8 +21,14 @@ let idChosenTool;
 let idReadTool;
 let idChosenTile;
 
+const $townhallPopup = document.getElementById('townhallPopup');
+let $closeTownhallPopup = document.getElementById('closeTownhallPopup');
+
+$closeTownhallPopup.addEventListener('click', function(event) {
+    $townhallPopup.classList.add('hidden');
+}, true);
+
 for(let tool of toolsList) {
-    
     // ----- Click -----
     tool.addEventListener('click', function(event) {
         event.stopPropagation(); 

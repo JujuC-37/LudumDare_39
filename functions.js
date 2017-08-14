@@ -1,5 +1,5 @@
-const widthMap = 6; // data in .css too
-const heightMap = 6; // data in .css too
+const widthMap = 6; // data also in .css
+const heightMap = 6; // data also in .css
 const frequencyDisplay = 4000;
 const nbBackgroundTiles = 4;
 
@@ -8,20 +8,12 @@ const $informationsSection = document.getElementById('informationsSection');
 const $map = document.getElementById('map');
 const $informationsCityBar = document.getElementById('informationsCity');
 
-// const logos = {
-//     people: 'images/logo_people.svg',
-//     food: 'images/logo_food.svg',
-//     log: 'images/logo_log.svg',
-//     stone: 'images/logo_stone.svg',
-//     happiness: 'images/logo_happiness.png'
-// }
-
 const logos = {
     people: {image: 'images/logo_people.svg', alt: 'people', title: 'People'},
     food: {image: 'images/logo_food.svg', alt: 'food', title: 'Food'},
     log: {image: 'images/logo_log.svg', alt: 'log', title: 'Log'},
-    stone: {image: 'images/logo_stone.svg', alt: 'log', title: 'Log'},
-    happiness: {image: 'images/logo_happiness.png', alt: 'log', title: 'Log'}
+    stone: {image: 'images/logo_stone.svg', alt: 'stone', title: 'Stone'},
+    happiness: {image: 'images/logo_happiness.png', alt: 'happiness', title: 'Happiness'}
 }
 
 // -----------------------------------------------------------------------------
@@ -111,7 +103,7 @@ const buildingsArray = [farmer, hunter, woodcutter, stonecutter, warehouse, town
 const toolsArray = [broomRemove];
 var constructedBuildingsArray = Array(widthMap * heightMap).fill(null);
 
-var dataCity = {people: 0, food: 2, log: 4, stone: 0, happiness: 0};
+var dataCity = {people: 0, food: 2, log: 10, stone: 10, happiness: 0};
 
 // -----------------------------------------------------------------------------
 // ---------------------------------  Display ----------------------------------
@@ -121,14 +113,14 @@ function displayToolsList() {
     // ----- tools -----
     $toolsList.innerHTML += toolsArray
         .map( tool => `<div id ="${tool.id}" class="selectableTool ${tool.type}">
-            <img src="${tool.image}" alt="${tool.name}" title="${tool.descr}">
+            <img src="${tool.image}" alt="${tool.name}" title="${tool.name}">
             </div>`)
             .join('');
 
     // ----- buildings -----
     $toolsList.innerHTML += buildingsArray
         .map( building => `<div id ="${building.id}" class="selectableTool ${building.type}">
-            <img src="${building.image}" alt="${building.name}" title="${building.descr}">
+            <img src="${building.image}" alt="${building.name}" title="${building.name}">
             </div>`)
             .join('');
 }
@@ -188,13 +180,34 @@ function addContentInformationsSection(chosenObject) {
         `<p class="infosToolTitle">${chosenObject.name}</p>
 
         <p class="infosToolText">${chosenObject.descr}<br />
-        People : ${chosenObject.people} <img src="${logos.people.image}" alt="${logos.people.alt}" title="${logos.people.title}"></p>
+        People : ${chosenObject.people}<img src="${logos.people.image}" alt="${logos.people.alt}" title="${logos.people.title}"></p>
 
-        <p class="infosToolSubTitle">Construction needs :</p>
-        <p class="infosToolText"><img src="${logos.food.image}" alt="${logos.food.alt}" title="${logos.food.title}">${chosenObject.construction.food} <img src="${logos.log.image}" alt="${logos.log.alt}" title="${logos.log.title}">${chosenObject.construction.log} <img src="${logos.stone.image}" alt="${logos.stone.alt}" title="${logos.stone.title}">${chosenObject.construction.stone} <img src="${logos.happiness.image}" alt="${logos.happiness.alt}" title="${logos.happiness.title}">${chosenObject.construction.happiness}</p>
+        <p class="infosToolSubTitle">Building construction needs :</p>
+        ${renderLogoResourcesCost(logos, chosenObject.construction)}
 
-        <p class="infosToolSubTitle">Construction products :</p>
-        <p class="infosToolText"><img src="${logos.food.image}" alt="${logos.food.alt}" title="${logos.food.title}">${chosenObject.production.food} <img src="${logos.log.image}" alt="${logos.log.alt}" title="${logos.log.title}">${chosenObject.production.log} <img src="${logos.stone.image}" alt="${logos.stone.alt}" title="${logos.stone.title}">${chosenObject.production.stone} <img src="${logos.happiness.image}" alt="${logos.happiness.alt}" title="${logos.happiness.title}">${chosenObject.production.happiness}</p>`;
+        <p class="infosToolSubTitle">Building products :</p>
+        ${renderLogoResourcesProduction(logos, chosenObject.production)}
+        
+        <p class="infosToolSubTitle">Building uses :</p>
+        ${renderLogoResourcesCost(logos, chosenObject.use)}`;
+}
+
+function renderLogoResource(resource) {
+    return `<img src="${resource.image}" alt="${resource.alt}" title="${resource.title}">`;
+}
+
+function renderLogoResourcesCost(logos, cost) {
+    return `<p class="infosToolText">${Object.keys(cost).map(
+        key => `${renderLogoResource(logos[key])}-${cost[key]}` 
+    ).join('')}</p>
+    `; 
+}
+
+function renderLogoResourcesProduction(logos, prod) {
+    return `<p class="infosToolText">${Object.keys(prod).map(
+        key => `${renderLogoResource(logos[key])}+${prod[key]}` 
+    ).join('')}</p>
+    `; 
 }
 
 function displayInformationsTile(idTile) {
@@ -208,10 +221,17 @@ function displayInformationsTile(idTile) {
 
     // display informations
     addContentInformationsSection(displayedBuilding);
+    if(displayedBuilding.id === 'townHall') displayTownhallPopup();
 }
 
 function deleteInformationsTool() {
     $informationsSection.innerHTML = '';
+}
+
+function displayTownhallPopup(){
+    $townhallPopup.classList.remove('hidden');
+
+    $townhallPopup.querySelector('.content').innerHTML = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sem erat, sagittis at accumsan ut, ultricies in nunc. Duis egestas dui in bibendum rutrum. Maecenas ullamcorper metus aliquam nulla ullamcorper</p>`;
 }
 
 let lastTime = 0;

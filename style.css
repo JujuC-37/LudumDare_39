@@ -1,15 +1,22 @@
 :root{
-    --nbColumnMap: 6; /* data in .js too */
-    --nbLinesMap: 6; /* data in .js too */
+    --heigthInformationsCity: 65px;
+
+    --nbColumnMap: 6; /* data also in .js */
+    --nbLinesMap: 6; /* data also in .js */
     --nbColumnToolsList: 4;
 
     --sizeImgToolsList: 70px;
     --marginImgToolsList: 5px;
     --heightInfoTool: 250px;
 
+    --widthToolBarSection: calc( var(--nbColumnToolsList) * ( var(--sizeImgToolsList) + var(--marginImgToolsList) ));
+
     --widthMapSection: 800px;
     --sizeTileMap: 70px;
     --sizeBuildingOnTileMap: 65px;
+
+    --positionTopTownhallPopup: calc( 50px  );
+    --positionLeftTownhallPopup: calc( 0px + var(--widthToolBarSection) );
 }
 
 body{
@@ -27,8 +34,13 @@ section{
     background-color: lightskyblue;
 }
 
+.hidden{
+    display: none;
+}
+
 #informationsCity{
     background-color: plum;
+    height: var(--heigthInformationsCity);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -55,8 +67,8 @@ section{
     text-align: right;
 }
 
-
 #city{
+    position: relative;
     background-color: lightgreen;
     display: flex;
     flex-direction: row;
@@ -64,7 +76,7 @@ section{
 
 #toolBarSection{
     background-color: lightpink;
-    width: calc( var(--nbColumnToolsList) * (var(--sizeImgToolsList) + var(--marginImgToolsList)));
+    width: var(--widthToolBarSection);
     display: flex;
     flex-direction: column;
 }
@@ -162,6 +174,15 @@ section{
 .tileBackground_3{
     background-image: url("images/tile_green_03.svg");
     background-size: var(--sizeTileMap) var(--sizeTileMap);
+}
+
+#townhallPopup{
+    position: absolute;
+    top: var(--positionTopTownhallPopup);
+    left: var(--positionLeftTownhallPopup);
+    right: 20px;
+    background-color: #FFFFCF;
+    padding: 5px;
 }
 
 footer{
